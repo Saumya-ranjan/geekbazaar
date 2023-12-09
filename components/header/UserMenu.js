@@ -1,14 +1,14 @@
 import Link from "next/link";
 import styles from "./styles.module.scss";
-// import { signOut, signIn } from "next-auth/react";
-export default function UserMenu() {    //  { session }
+import { signOut, signIn } from "next-auth/react";
+export default function UserMenu({ session }) {
   return (
     <div className={styles.menu}>
-      <h4>Welcome to GeekBazaar !</h4>
-      {/* {session ? (
-        <div className={styles.flex}> */}
-          {/* <img src={session?.user?.image} alt="" className={styles.menu__img} /> */}
-          {/* <div className={styles.col}>
+      <h4>Welcome to Geek Bazaar!</h4>
+      {session ? (
+        <div className={styles.flex}>
+          <img src={session?.user?.image} alt="" className={styles.menu__img} />
+          <div className={styles.col}>
             <span>Welcome Back,</span>
             <h3>{session?.user?.name}</h3>
             <span onClick={() => signOut()}>Sign out</span>
@@ -20,8 +20,8 @@ export default function UserMenu() {    //  { session }
           <button className={styles.btn_outlined} onClick={() => signIn()}>
             Login
           </button>
-        </div> */}
-      {/* )} */}
+        </div>
+      )}
       <ul>
         <li>
           <Link href="/profile">Account</Link>
@@ -36,7 +36,7 @@ export default function UserMenu() {    //  { session }
           <Link href="/profile/address">Address</Link>
         </li>
         <li>
-          <Link href="/profile/whishlist">Whishlist</Link>
+          <Link href="/profile/whishlist">Wishlist</Link>
         </li>
       </ul>
     </div>

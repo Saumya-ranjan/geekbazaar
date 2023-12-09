@@ -3,21 +3,22 @@ import { MdSecurity } from "react-icons/md";
 import { BsSuitHeart } from "react-icons/bs";
 import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri";
 import Link from "next/link";
+import { useState } from "react";
 import UserMenu from "./UserMenu";
-// import { useState } from "react";
-// import UserMenu from "./UserMenu";
-// import { useSession } from "next-auth/react";
-export default function Top() {        // { country }
-  // const { data: session } = useSession();
-  // const [visible, setVisible] = useState(false);
+import { useSession } from "next-auth/react";
+
+export default function Top({ country }) {
+  const { data: session } = useSession();
+  const [visible, setVisible] = useState(false);
+
   return (
     <div className={styles.top}>
       <div className={styles.top__container}>
         <div></div>
         <ul className={styles.top__list}>
           <li className={styles.li}>
-            <img src="" alt="" />
-            <span>India / USD</span>
+            <img src={country?.flag} alt="" />
+            <span>{country?.name} / USD</span>
           </li>
           <li className={styles.li}>
             <MdSecurity />
@@ -35,12 +36,12 @@ export default function Top() {        // { country }
               <span>Wishlist</span>
             </Link>
           </li>
-          {/* <li
+          <li
             className={styles.li}
             onMouseOver={() => setVisible(true)}
             onMouseLeave={() => setVisible(false)}
-          > */}
-            {/* {session ? (
+          >
+            {session ? (
               <li className={styles.li}>
                 <div className={styles.flex}>
                   <img src={session?.user?.image} alt="" />
@@ -56,12 +57,10 @@ export default function Top() {        // { country }
                   <RiArrowDropDownFill />
                 </div>
               </li>
-            )} */}
-            {/* {visible && <UserMenu session={session} />} */}
-          {/* </li> */}
-
+            )}
+            {visible && <UserMenu session={session} />}
+          </li>
         </ul>
-        <UserMenu/>
       </div>
     </div>
   );

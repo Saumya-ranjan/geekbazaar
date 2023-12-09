@@ -25,7 +25,7 @@ export default function NewsLetter() {
   };
   return (
     <div className={styles.footer__newsletter}>
-      <h3>SIGN UP FOR OUR NEWSLETTER</h3>
+      <h3>Sign Up For Our Geeky News Letter</h3>
       <div className={styles.footer__flex}>
         <input
           type="text"
@@ -39,15 +39,16 @@ export default function NewsLetter() {
           style={{ cursor: `${loading ? "not-allowed" : ""}` }}
           onClick={() => subscribe()}
         >
-          SUBSCRIBE
+          Subscribe
         </button>
       </div>
       {loading && <div className="">loading...</div>}
       {error && <div className="error">{error}</div>}
       {success && <div className="success">{success}</div>}
       <p>
-        By clicking the SUBSCRIBE button, you are agreeing to{" "}
+        By clicking the Subscribe button, you are agreeing to{" "}
         <Link href="">our Privacy & Cookie Policy</Link>
+        Also you will be our premium Geeky Member!! Hoorayyyy!!!
       </p>
     </div>
   );

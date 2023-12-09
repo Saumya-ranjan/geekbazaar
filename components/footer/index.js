@@ -1,5 +1,5 @@
 import Copyright from "./Copyright";
-import Links from "./links";
+import Links from "./Links";
 import NewsLetter from "./NewsLetter";
 import Payment from "./Payment";
 import Socials from "./Socials";
@@ -13,7 +13,8 @@ export default function Footer({ country }) {
         <Socials />
         <NewsLetter />
         <Payment />
-        <Copyright country={country} />
+        <Copyright country={country} />   
+        {/* country.name */}
       </div>
     </footer>
   );

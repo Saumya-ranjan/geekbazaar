@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 const connection = {};
 
+// Connecting Local Database {Not Used in Production Environment}
 async function connectDb() {
+  console.log(process.env.MONGODB_URL)
   if (connection.isConnected) {
     console.log("Already connected to the database.");
     return;

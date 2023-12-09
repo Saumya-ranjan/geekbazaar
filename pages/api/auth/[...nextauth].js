@@ -70,7 +70,7 @@ export default NextAuth({
 //     },
 //   },
   pages: {
-    // signIn: "/signin",
+    signIn: "/signin",
   },
   session: {
     strategy: "jwt",

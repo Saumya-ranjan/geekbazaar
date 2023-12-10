@@ -54,11 +54,11 @@ export default NextAuth({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
-    Auth0Provider({
-      clientId: process.env.AUTH0_CLIENT_ID,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET,
-      issuer: process.env.AUTH0_ISSUER,
-    }),
+    // Auth0Provider({
+    //   clientId: process.env.AUTH0_CLIENT_ID,
+    //   clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    //   issuer: process.env.AUTH0_ISSUER,
+    // }),
   ],
 //   callbacks: {
 //     async session({ session, token }) {
@@ -79,13 +79,13 @@ export default NextAuth({
   secret: process.env.JWT_SECRET,
 });
 
-// const SignInUser = async ({ password, user }) => {
-//   if (!user.password) {
-//     throw new Error("Please enter your password.");
-//   }
-//   const testPassword = await bcrypt.compare(password, user.password);
-//   if (!testPassword) {
-//     throw new Error("Email or password is wrong!");
-//   }
-//   return user;
-// };
+const SignInUser = async ({ password, user }) => {
+  if (!user.password) {
+    throw new Error("Please enter your password.");
+  }
+  const testPassword = await bcrypt.compare(password, user.password);
+  if (!testPassword) {
+    throw new Error("Email or password is wrong!");
+  }
+  return user;
+};

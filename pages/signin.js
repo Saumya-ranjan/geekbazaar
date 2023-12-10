@@ -8,14 +8,23 @@ import { Formik, Form } from "formik";
 import * as Yup from 'yup'
 import LoginInput from "@/components/inputs/loginInput.js";
 import CircledIconBtn from "@/components/buttons/circledIconBtn";
+import { getProviders, signIn } from "next-auth/react";
 const initialValues = {
   login_email: "",
   login_password: "",
+  full_name:"",
+  email:"",
+  password:"",
+  conf_password:"",
 };
 
-export default function Signin() {
+export default function Signin({providers}) {
+  // console.log(providers)
   const [user, setUser] = useState(initialValues);
-  const { login_email, login_password } = user;
+  const { login_email, login_password, full_name,
+    email,
+    password,
+    conf_password} = user;
   const handleChange = (e)=>{
     // console.log(user)
     const {name, value} = e.target
@@ -67,17 +76,95 @@ export default function Signin() {
                   placeholder="Password" 
                   onChange = {handleChange}
                   />
-                </Form>
+                  <CircledIconBtn type="submit" text="Sign In"/>
+                   <div className={styles.forgot}>
+                     <Link href="/forget">Forgot Password</Link>
+                   </div>
+                  </Form>
               )}
             </Formik>
-            <CircledIconBtn type="submit" text="Sign In"/>
-            <div className={styles.forgot}>
-              <Link href="/forget">Forgot Password</Link>
+            <div className={styles.login__socials}>
+              <span className={styles.or}>Or continue with</span>
+              <div className={styles.login__socials_wrap}>
+                {providers.map((provider) => {
+                  if (provider.name == "Credentials") {
+                    return;
+                  }
+                  return (
+                    <div key={provider.name}>
+                      <button
+                        className={styles.social__btn}
+                        onClick={() => signIn(provider.id)}
+                      >
+                        <img src={`../../icons/${provider.name}.png`} alt="" />
+                        Sign in with {provider.name}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
+          </div>
+        </div>
+        <div className={styles.login__container}>
+          <div className={styles.login__form}>
+            <h1> Sign Up </h1>
+            <p> Get Access to all the things GeekBazaar has to Offer </p>
+            <Formik 
+            enableReinitialize
+            initialValues={{
+              full_name,
+              email,
+              password,
+              conf_password
+            }}
+            validationSchema={loginValidation}
+            >
+              {(form) => (
+                <Form>
+                  <LoginInput 
+                  type = "text"
+                  name = "full_name"
+                  icon="user" 
+                  placeholder="Full Name" 
+                  onChange = {handleChange}
+                  />
+                  <LoginInput 
+                  type = "text"
+                  name = "email"
+                  icon="email" 
+                  placeholder="Email Address" 
+                  onChange = {handleChange}
+                  />
+                  <LoginInput 
+                  type = "password"
+                  name = "password"
+                  icon="password" 
+                  placeholder="Password" 
+                  onChange = {handleChange}
+                  />
+                  <LoginInput 
+                  type = "password"
+                  name = "conf_password"
+                  icon="password" 
+                  placeholder="Confirm Password" 
+                  onChange = {handleChange}
+                  />
+                  <CircledIconBtn type="submit" text="Sign Up"/>
+                  </Form>
+              )}
+            </Formik>
           </div>
         </div>
       </div>
       <Footer country="india" />
     </>
   );
+}
+
+export async function getServerSideProps(context){
+  const providers = Object.values(await getProviders())
+  return {
+    props : {providers}
+  }
 }
